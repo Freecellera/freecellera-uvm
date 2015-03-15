@@ -5,5 +5,5 @@ DEFINES += +define+UVM_NO_DPI
 INCDIR += ../distrib/src
 ALLPKGS += ../distrib/src/uvm_pkg.sv
 
-include $(SVUNIT_INSTALL)/bin/cfg.mk
-include $(SVUNIT_INSTALL)/bin/questa.mk
+include cfg.mk
+include questa.mk
