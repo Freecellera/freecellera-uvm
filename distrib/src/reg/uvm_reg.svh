@@ -2875,15 +2875,13 @@ function bit uvm_reg::do_check(input uvm_reg_data_t expected,
                                input uvm_reg_data_t actual,
                                uvm_reg_map          map);
 
-   uvm_reg_data_t  dc = 0;
+   uvm_reg_data_t dc = '1;
 
    foreach(m_fields[i]) begin
       string acc = m_fields[i].get_access(map);
       acc = acc.substr(0, 1);
-      if (m_fields[i].get_compare() == UVM_NO_CHECK ||
-          acc == "WO") begin
-         dc |= ((1 << m_fields[i].get_n_bits())-1)
-            << m_fields[i].get_lsb_pos();
+      if (m_fields[i].get_compare() == UVM_CHECK && acc != "WO") begin
+         dc ^= ((1 << m_fields[i].get_n_bits()) - 1) << m_fields[i].get_lsb_pos();
       end
    end
 
