@@ -503,10 +503,13 @@ endfunction
 function string uvm_vector_to_string (uvm_bitstream_t value, int size,
                                       uvm_radix_enum radix=UVM_NORADIX,
                                       string radix_str="");
+  
 
   // sign extend & don't show radix for negative values
-  if (radix == UVM_DEC && value[size-1] === 1)
+  if (radix == UVM_DEC && value[size-1] === 1) begin
+    value |= {UVM_STREAMBITS{1'b1}} << size;
     return $sformatf("%0d", value);
+  end
 
   value &= (1 << size)-1;
 
